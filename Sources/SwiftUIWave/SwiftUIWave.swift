@@ -75,7 +75,6 @@ public struct WaveImage: View {
         .onAppear{
             self.phase = speed?.speed ?? 0
         }
-        .background(Color.white)
         .ignoresSafeArea()
     }
 }
