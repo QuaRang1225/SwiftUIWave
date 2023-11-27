@@ -104,18 +104,24 @@ public enum WavyAmplitude{
 }
 
 public enum WavyHeight{
+    case varyHigh
     case high
     case middle
     case low
+    case veryLow
     
     var height:CGFloat{
         switch self{
-        case .high:
+        case .varyHigh:
             return 0.8
+        case .high:
+            return 0.65
         case .middle:
             return 0.5
         case .low:
             return 0.2
+        case .veryLow:
+            return 0.1
         }
     }
 }
