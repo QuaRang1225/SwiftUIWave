@@ -14,7 +14,7 @@
 
 import SwiftUI
 
-struct WaveImage: View {
+public struct WaveImage: View {
     
     
     let color:Color
@@ -24,14 +24,14 @@ struct WaveImage: View {
     
     @State var phase:CGFloat = 0.0
     
-    init(color:Color,height:WavyHeight?,speed:WavySpeed?,amplitude:WavyAmplitude?){
+    public init(color:Color,height:WavyHeight?,speed:WavySpeed?,amplitude:WavyAmplitude?){
         self.phase = speed?.speed ?? 0
         self.color = color
         self.height = height
         self.amplitude = amplitude
     }
     
-    var body: some View {
+    public var body: some View {
         ZStack{
             Wave(reverse: true, progress: (height?.height ?? 0.5) + 0.03, addX: amplitude?.amplitude[0] ?? 0.2, phase: phase)
                 .fill(
@@ -87,7 +87,7 @@ struct WavyView_Previews: PreviewProvider {
 }
 
 
-enum WavyAmplitude{
+public enum WavyAmplitude{
     case high
     case middle
     case low
@@ -104,7 +104,7 @@ enum WavyAmplitude{
     }
 }
 
-enum WavyHeight{
+public enum WavyHeight{
     case high
     case middle
     case low
@@ -121,7 +121,7 @@ enum WavyHeight{
     }
 }
 
-enum WavySpeed{
+public enum WavySpeed{
     case fast
     case normal
     case slow
