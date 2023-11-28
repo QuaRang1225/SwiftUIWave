@@ -1,16 +1,3 @@
-//public struct SwiftUIWave {
-//    public private(set) var text = "Hello, World!"
-//
-//    public init() {
-//    }
-//}
-//
-////
-////  WavyView.swift
-////  SwiftUIWaveImage
-////
-////  Created by 유영웅 on 2023/11/27.
-////
 
 import SwiftUI
 
@@ -34,46 +21,19 @@ public struct WaveImage: View {
     public var body: some View {
         ZStack{
             Wave(reverse: true, progress: (height?.height ?? 0.5) + 0.03, addX: amplitude?.amplitude[0] ?? 0.2, phase: phase)
-                .fill(
-                    LinearGradient(colors: [color.opacity(0.2),color], startPoint: .top, endPoint: .bottom)
-                )
-                .onAppear{
-                    withAnimation(.linear(duration: 3).repeatForever(autoreverses:false)){
-                        self.phase = .pi * 2
-                    }
-                }
+                .fill(LinearGradient(colors: [color.opacity(0.2),color], startPoint: .top, endPoint: .bottom))
             Wave(reverse: true, progress: (height?.height ?? 0.5) + 0.05, addX: amplitude?.amplitude[1] ?? 0.4, phase: phase)
-                .fill(
-                    color.opacity(0.2)
-                )
-                .onAppear{
-                    withAnimation(.linear(duration: 3).repeatForever(autoreverses:false)){
-
-                        self.phase = .pi * 2
-                    }
-                }
+                .fill(color.opacity(0.2))
             Wave(reverse: false, progress: (height?.height ?? 0.5) + 0.07, addX: amplitude?.amplitude[2] ?? 0.4, phase: phase)
-                .fill(
-                    color.opacity(0.2)
-                )
-                .onAppear{
-                    withAnimation(.linear(duration: 3).repeatForever(autoreverses:false)){
-
-                        self.phase = .pi * 2
-                    }
-                }
+                .fill(color.opacity(0.2))
             Wave(reverse: false, progress: (height?.height ?? 0.5) + 0.05, addX: amplitude?.amplitude[3] ?? 0.5, phase: phase)
-                .fill(
-                    color.opacity(0.2)
-                )
-                .onAppear{
-                    withAnimation(.linear(duration: 3).repeatForever(autoreverses:false)){
-                        self.phase = .pi * 2
-                    }
-                }
+                .fill(color.opacity(0.3))
+            
         }
         .onAppear{
-            self.phase = speed?.speed ?? 0
+            withAnimation(.linear(duration: 3).repeatForever(autoreverses:false)){
+                self.phase = .pi * 2
+            }
         }
         .ignoresSafeArea()
     }
@@ -146,12 +106,10 @@ public enum WavySpeed{
 
 struct Wave:Shape{
     
-    let reverse:Bool
-    let progress:CGFloat
-    let addX:CGFloat
-    var applitude:CGFloat = 10  //진폭
-    var waveLength:CGFloat = 30 //진동수
-    var phase:CGFloat
+    let reverse:Bool            //파도방향
+    let progress:CGFloat        //높이
+    let addX:CGFloat            //진폭
+    var phase:CGFloat           //스피드
     
     
     var animatableData: CGFloat{
@@ -161,7 +119,6 @@ struct Wave:Shape{
     
     func path(in rect:CGRect) -> Path{
         var path = Path()
-        
         let width = rect.width
         let height = rect.height
         let progressHeight = height * (1 - progress)
@@ -171,7 +128,7 @@ struct Wave:Shape{
             path.move(to: CGPoint(x: 0, y: progressHeight))
             
             for x in stride(from:0 , to: width + 10, by: 10){
-                let y = progressHeight + sin(phase +  x*addX/waveLength) * applitude
+                let y = progressHeight + sin(phase +  x * addX/30) * 10
                 path.addLine(to: CGPoint(x: x, y: y))
             }
             
@@ -180,12 +137,12 @@ struct Wave:Shape{
             return path
         }else{
             path.move(to: CGPoint(x: width, y: progressHeight))
-            
+
             for x in stride(from: width, to: -10, by: -10){
-                let y = progressHeight + sin(phase +  (width - x)*addX/waveLength) * applitude
+                let y = progressHeight + sin(phase +  (width - x)*addX/30) * 10
                 path.addLine(to: CGPoint(x: x, y: y))
             }
-            
+
             path.addLine(to: CGPoint(x:0,y: height))
             path.addLine(to: CGPoint(x: width, y: height))
             return path
