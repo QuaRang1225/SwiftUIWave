@@ -137,12 +137,12 @@ struct Wave:Shape{
             return path
         }else{
             path.move(to: CGPoint(x: width, y: progressHeight))
-
+            
             for x in stride(from: width, to: -10, by: -10){
                 let y = progressHeight + sin(phase +  (width - x)*addX/30) * 10
                 path.addLine(to: CGPoint(x: x, y: y))
             }
-
+            
             path.addLine(to: CGPoint(x:0,y: height))
             path.addLine(to: CGPoint(x: width, y: height))
             return path
