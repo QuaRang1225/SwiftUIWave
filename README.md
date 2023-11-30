@@ -59,8 +59,5 @@ struct TestView: View {
 }
 ```
 
-## Contact
-- [Blog](https://quarang.tistory.com/55)
-- Mail : dbduddnd1225@gmail.com
 ## Version
 v.1.0.0 - 생성
